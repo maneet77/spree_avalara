@@ -1,0 +1,29 @@
+<dl>
+  <dt><%= t(:item_total) %></dt>
+  <dd><%= number_to_currency order.item_total %></dd>
+
+  <% order.adjustments.eligible.each do |adjustment| %>
+    <% next if (adjustment.originator_type == 'Avalara::AvalaraTaxTransaction') and (adjustment.amount == 0) %>
+    <dt class="<%= "discount" if adjustment.amount < 0 %>">
+      <%= adjustment.label %>
+    </dt>
+    <dd class="<%= "discount" if adjustment.amount < 0 %>">
+      <%= number_to_currency adjustment.amount %>
+    </dd>
+  <% end %>
+
+  <% if order.price_adjustment_totals.present? %>
+    <% @order.price_adjustment_totals.keys.each do |key| %>
+      <dt class="<%= "discount" if adjustment.amount < 0 %>">
+        <%= key %>
+      </dt>
+      <dd class="<%= "discount" if adjustment.amount < 0 %>">
+        <%= number_to_currency @order.price_adjustment_totals[key] %>
+      </dd>
+    <% end %>
+  <% end %>
+</dl>
+<dl class="total">
+  <dt>Total</dt>
+  <dd id="total-amount"><%= number_to_currency @order.total %></dd>
+</dl>

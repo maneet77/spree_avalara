@@ -1,0 +1,5 @@
+<%= f.field_container :tax_code do %>
+  <%= f.label :tax_code, t(:tax_code) %><br />
+  <%= error_message_on :taxon, :tax_code, :class => 'title' %>
+  <%= f.text_field :avalara_tax_code %>
+<% end %>
